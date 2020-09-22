@@ -1,8 +1,6 @@
 package com.wutut.ThinkinginJava.Chap21;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
