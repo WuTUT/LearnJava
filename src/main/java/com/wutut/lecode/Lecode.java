@@ -1,38 +1,53 @@
 package com.wutut.lecode;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int x) {
+        val = x;
+    }
+}
+
 class Solution {
-    public double myPow(double x, int n) {
-        if (n == 0)
-            return 1.0;
-        if (x == 0)
-            return 0.0;
-        if (n > 0) {
-            double ret = 1.0;
-            while (n != 0) {
-                if ((n & 1) != 0) {
-                    ret *= x;
-                }
-                x *= x;
-                n >>= 1;
-            }
-            return ret;
-        } else if (n < 0) {
-            long nn = -(long) n;
-            // System.out.println(n);
-            double ret = 1.0;
-            x = 1.0 / x;
-            while (nn != 0) {
-                if ((nn & 1) != 0) {
-                    ret *= x;
-                }
-                x *= x;
-                nn >>= 1;
-            }
-            return ret;
+    ArrayList<Integer> ans = new ArrayList<>();
+
+    public int[] findMode(TreeNode root) {
+        dfs(root);
+        return ans.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    int num = 0;
+    int cnt = 0;
+    int maxcnt = 0;
+
+    void dfs(TreeNode root) {
+        if (root.left != null) {
+            dfs(root.left);
         }
-        return 0.0;
+        if (cnt == 0) {
+            num = root.val;
+            cnt++;
+        } else if (num != root.val) {
+            if (maxcnt < cnt) {
+                ans.clear();
+                ans.add(root.val);
+                maxcnt = cnt;
+            } else if (maxcnt == cnt) {
+                ans.add(root.val);
+            }
+            cnt = 1;
+            num = root.val;
+        } else {
+            cnt++;
+        }
+        if (root.right != null) {
+            dfs(root.right);
+        }
     }
 
 }
@@ -41,11 +56,5 @@ public class Lecode {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
-        double x = scanner.nextDouble();
-        int n = scanner.nextInt();
-        Solution solution = new Solution();
-        double ans = solution.myPow(x, n);
-        System.out.println(ans);
     }
 }
