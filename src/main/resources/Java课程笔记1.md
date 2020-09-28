@@ -34,3 +34,11 @@
    * 子类可以访问，包类可以访问  C++ 子类可以访问
 7. public 类 包外可以访问
 8. private/protected类 内部的类才有意义
+9. 继承
+   * C++ name hide 父类overload 却子类会被隐蔽掉 Java报错没有name hide
+   * 父类的成员变量和子类成员变量无关 java和c++一致
+   * 初始化顺序
+     * 父类静态 -> 子类静态 -> 父类初始化（做完:） -> 子类初始化
+10. 多态
+   * java一直在upcast 动态绑定 运行时确定 但static/私有函数/final函数一定是静态绑定
+   *  
