@@ -41,4 +41,31 @@
      * 父类静态 -> 子类静态 -> 父类初始化（做完:） -> 子类初始化
 10. 多态
    * java一直在upcast 动态绑定 运行时确定 但static/私有函数/final函数一定是静态绑定
-   *  
+
+11. System.out.Println(true?Integer.ValueOf(1):Double.valueOf(2)); //course/Pitfall.java
+    * 编译期确定overload，运行期确定overwrite
+    * ValueOf会发生函数调用，和true？1:2.0 不一样 System.out.println(true ? 1 : 2.0);（额，JDK11这个也是1.0）
+    * Println重载，所以根据情况，会调用double类型
+12. Exception
+    * 网络流、另一个进程在写，UNIX键盘等“file” 获取不了文件大小
+    * -Xms100m JVM初始分配的堆内存 -Xmx1G JVM最大允许分配的堆内存，按需分配
+    * try catch匹配原则 在能捕捉到的地方被catch main没有结束程序报错
+    * 子类对象可以是父类对象
+    * java异常声明 C++也有
+      1. 编译器静态检查，看是否会抛异常，不能瞒报异常：否则会编译不过； 可以虚假声明会抛有些异常：调用此函数人必须处理异常或者继续声明 
+      2. RuntimeException 没必要异常声明
+      3. 子类override父类函数  
+         A p =new B(); p.f(); // B抛的异常必须比A抛的异常少
+      4. 子类构造函数和父类构造函数
+         子类抛的异常要求比父类构造函数多：隐式调用父类构造函数 子类声明的异常应该是父类的超集 super又不能放在try里
+      5. 子类继承父类，实现接口
+         抛出的异常应该是父类那个函数和接口中那个函数的交集 
+      6. 构造函数里抛异常
+         C++： 语法正确，但可能无法正确回收内存和资源，RAII机制  另外析构函数不能抛出异常
+         Java：内存回收安全，手动回收资源
+      7. 
+    * finally 永远都要执行 文件等需要关闭
+    * Rethrow 
+    * Throwable -> Error
+                -> Exception -> Runtime Exception
+                             -> IOException
